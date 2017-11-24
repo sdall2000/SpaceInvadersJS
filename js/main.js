@@ -2,7 +2,7 @@ var canvas, canvasContext;
 
 const FRAMES_PER_SECOND = 30;
 
-var player;
+var coreCannon;
 var frameCount = 1;
 var moveInvaders = false;
 var debugFreezeInvaders = false;
@@ -19,10 +19,10 @@ window.onload = function() {
         function(evt) {
             if (debugFreezeInvaders) {
                 var mousePos = calculateMousePos(evt);
-                player.shotActive = true;
-                player.shotX = mousePos.x;
-                player.shotY = mousePos.y;
-                player.debugShot = true;
+                coreCannon.shotActive = true;
+                coreCannon.shotX = mousePos.x;
+                coreCannon.shotY = mousePos.y;
+                coreCannon.debugShot = true;
             }
         });
 
@@ -42,7 +42,7 @@ function calculateMousePos(evt) {
 }
 
 function startGame() {
-    player = new playerClass(warriorPic, "Blue Storm");
+    coreCannon = new coreCannonClass(coreCannonImage);
 
     setInterval(updateAll, 1000 / FRAMES_PER_SECOND);
 
@@ -55,7 +55,7 @@ function loadLevel(whichLevel) {
     // Copy level array.
     invaderGrid = whichLevel.slice();
 
-    player.reset();
+    coreCannon.reset();
 }
 
 function updateMousePos(evt) {
@@ -83,12 +83,12 @@ function moveAll() {
     if (moveInvaders && !debugFreezeInvaders) {
         moveTheInvaders();
     }
-    player.move();
-    if (player.shotActive) {
-        handlePlayerBullet(player);
+    coreCannon.move();
+    if (coreCannon.shotActive) {
+        handlePlayerBullet(coreCannon);
     }
     if (invBulletActive) {
-        if (player.handleInvaderShot(invBulletX, invBulletY, BULLET_LENGTH)) {
+        if (coreCannon.handleInvaderShot(invBulletX, invBulletY, BULLET_LENGTH)) {
             invBulletActive = false;
         }
     }
@@ -96,6 +96,6 @@ function moveAll() {
 
 function drawAll() {
     drawInvaders();
-    player.draw();
+    coreCannon.draw();
     drawBoard();
 }

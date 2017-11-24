@@ -11,31 +11,31 @@ function setupInput() {
     document.addEventListener('keydown', keyPressed);
     document.addEventListener('keyup', keyReleased);
 
-    player.setupInput(KEY_RIGHT_ARROW, KEY_LEFT_ARROW, KEY_SPACE);
+    coreCannon.setupInput(KEY_RIGHT_ARROW, KEY_LEFT_ARROW, KEY_SPACE);
 }
 
-function keySet(whichWarrior, evt, setTo) {
+function keySet(whichCoreCannon, evt, setTo) {
     switch(evt.keyCode) {
-        case whichWarrior.controlKeyLeft:
-            whichWarrior.keyHeldLeft = setTo;
+        case whichCoreCannon.controlKeyLeft:
+            whichCoreCannon.keyHeldLeft = setTo;
             break;
-        case whichWarrior.controlKeyRight:
-            whichWarrior.keyHeldRight = setTo;
+        case whichCoreCannon.controlKeyRight:
+            whichCoreCannon.keyHeldRight = setTo;
             break;
     }
 }
 
 function keyPressed(evt) {
     // Check for shot.
-    if (evt.keyCode == player.fireKey) {
-        player.takeShot();
+    if (evt.keyCode == coreCannon.fireKey) {
+        coreCannon.takeShot();
     }
 
-    keySet(player, evt, true);
+    keySet(coreCannon, evt, true);
 }
 
 function keyReleased(evt) {
-    keySet(player, evt, false);
+    keySet(coreCannon, evt, false);
 }
 
 function updateMousePos(evt) {

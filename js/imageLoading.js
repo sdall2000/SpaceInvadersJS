@@ -1,4 +1,4 @@
-var warriorPic = document.createElement("img");
+var coreCannonImage = document.createElement("img");
 
 var worldPics = [];
 
@@ -10,10 +10,10 @@ function imageLoaded() {
     if (picsToLoad == 0) {
         startGame();
     }
-};
+}
 
 function beginLoadImage(imageVar, fileName) {
-    imageVar.onload = imageLoaded();
+    imageVar.onload = imageLoaded;
     imageVar.src = fileName;
 }
 
@@ -24,7 +24,7 @@ function loadImageForWorldCode(worldCode, fileName) {
 
 function loadImages() {
     var imageList = [
-        {varName: warriorPic, theFile: "images/playerShip.png"},
+        {varName: coreCannonImage, theFile: "images/coreCannon.png"},
         {worldType: SMALL_INVADER, theFile: "images/smallInvader1.png"},
         {worldType: MEDIUM_INVADER, theFile: "images/mediumInvader1.png"},
         {worldType: LARGE_INVADER, theFile: "images/largeInvader1.png"},

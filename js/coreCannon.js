@@ -5,17 +5,18 @@ const BULLET_COLOR = '#ff0000';
 const BULLET_SPEED = 20;
 const PLAYER_OFFSET_FROM_BOTTOM = 40;
 
-function playerClass(whichImage, name) {
+function coreCannonClass(whichImage) {
+    this.myCoreCannon = whichImage;
+
     this.x = 75;
-    this.y = canvas.height - PLAYER_OFFSET_FROM_BOTTOM;
+    this.y = canvas.height - PLAYER_OFFSET_FROM_BOTTOM - this.myCoreCannon.height;
+
+    console.log("Height: " + whichImage.height);
 
     this.playersRemaining = 3;
 
     this.lastValidX;
     this.lastValidY;
-
-    this.myWarriorPic = whichImage;
-    this.name = name;
 
     this.keyHeldLeft = false;
     this.keyHeldRight = false;
@@ -38,26 +39,6 @@ function playerClass(whichImage, name) {
 
     this.reset = function() {
         this.keyCount = 0;
-
-        // for (var br = 0; br < WORLD_ROWS; br++) {
-        //     for (var bc = 0; bc < WORLD_COLUMNS; bc++) {
-        //         var arrayIndex = columnRowToArrayIndex(bc, br);
-        //         if (worldGrid[arrayIndex] == TILE_PLAYERSTART) {
-        //             worldGrid[arrayIndex] = TILE_GROUND;
-        //             this.x = bc * WORLD_W + WORLD_W / 2;
-        //             this.y = br * WORLD_H + WORLD_H / 2;
-        //
-        //             this.lastValidX = this.x;
-        //             this.lastValidY = this.y;
-        //
-        //             // Bail out of this method so one warrior doesn't take both warrior positions in the grid.
-        //             return;
-        //         }
-        //     }
-        // }
-        //
-        // // We got through the loop without finding a place to put the warrior - error.
-        // console.log("NO PLAYER START FOUND!");
     }
 
     this.move = function() {
@@ -89,9 +70,10 @@ function playerClass(whichImage, name) {
     }
 
     this.draw = function() {
-        var useBitmap = this.myWarriorPic;
-        canvasContext.drawImage(useBitmap, this.x - useBitmap.width/2, this.y - useBitmap.height/2);
-        // drawBitmapCenteredWithRotation(this.myWarriorPic, this.x, this.y, this.angleRadians);
+        var width = this.myCoreCannon.width;
+        var height = this.myCoreCannon.height;
+
+        canvasContext.drawImage(this.myCoreCannon, this.x - width/2, this.y - height/2);
 
         if (this.shotActive) {
             canvasContext.beginPath();
@@ -103,7 +85,7 @@ function playerClass(whichImage, name) {
         }
 
         for (var i=0; i < this.playersRemaining; i++) {
-            canvasContext.drawImage(useBitmap, i * useBitmap.width + i * 5, canvas.height - useBitmap.height - 10);
+            canvasContext.drawImage(this.myCoreCannon, i * width + i * 5, canvas.height - height - 10);
         }
     }
 
@@ -123,12 +105,12 @@ function playerClass(whichImage, name) {
     // TODO return true if hit?  That way invader can clear the shot.
     this.handleInvaderShot = function(iShotX, iShotY, iShotLength) {
         var hit = false;
-        var shipLeft = this.x - this.myWarriorPic.width / 2;
-        var shipRight = shipLeft + this.myWarriorPic.width - 1;
+        var shipLeft = this.x - this.myCoreCannon.width / 2;
+        var shipRight = shipLeft + this.myCoreCannon.width - 1;
         if (iShotX >= shipLeft && iShotX <= shipRight) {
             // Check vertical
             var iShotTip = iShotY + iShotLength;
-            if (iShotTip >= this.y && iShotY <= this.y + this.myWarriorPic.height) {
+            if (iShotTip >= this.y && iShotY <= this.y + this.myCoreCannon.height) {
                 this.playerHit();
                 hit = true;
             }

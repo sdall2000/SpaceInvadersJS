@@ -146,7 +146,7 @@ function handlePlayerBullet(player) {
                 shotRelativeX = player.shotX - xOffset - col * INVADER_COLUMN_WIDTH;
                 shotRelativeY = player.shotY - yOffset - row * INVADER_ROW_HEIGHT;
 
-                console.log("Relative shot x/y: " + shotRelativeX + "/" + shotRelativeY);
+                // console.log("Relative shot x/y: " + shotRelativeX + "/" + shotRelativeY);
 
                 var useImg = worldPics[tileKindHere];
 
