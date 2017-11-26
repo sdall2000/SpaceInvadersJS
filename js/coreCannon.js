@@ -53,10 +53,16 @@ function coreCannonClass(whichImage) {
 
         if (this.keyHeldRight) {
             this.x += SPEED
+            if (this.x > canvas.width) {
+                this.x = canvas.width;
+            }
         }
 
         if (this.keyHeldLeft) {
             this.x -= SPEED
+            if (this.x < 0) {
+                this.x = 0;
+            }
         }
 
         if (this.shotActive) {
